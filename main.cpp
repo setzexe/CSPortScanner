@@ -3,14 +3,18 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <string>
 
 using namespace std;
 
-int main() {
-	const char* target_ip = "127.0.0.1";
-	int target_port;
-	cout << "Enter port to check: ";
-	cin >> target_port;
+int main(int argc, char* argv[]) {
+	if (argc < 3) {
+		cout << "Usage: " << argv[0] << " <IP_address> <PORT>";
+		return 1;
+	}
+
+	string target_ip = argv[1];
+	int target_port = stoi(argv[2]);
 
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == -1) {
@@ -21,7 +25,7 @@ int main() {
 	target_address.sin_family = AF_INET;
 	target_address.sin_port = htons(target_port);
 
-        if (inet_pton(AF_INET, target_ip, &target_address.sin_addr) <= 0) {
+        if (inet_pton(AF_INET, target_ip.c_str(), &target_address.sin_addr) <= 0) {
        		cerr << "Invalid IP address." << endl;
         	close(sock);
         	return 1;
