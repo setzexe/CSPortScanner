@@ -24,7 +24,7 @@ enum class PortState {
 PortState scanPort(const string& target_ip, int target_port, int timeout_ms) {
     	int sock = socket(AF_INET, SOCK_STREAM, 0);
 
-    	if (sock == -1) {
+	if (sock == -1) {
         	return PortState::ERROR;
     	}
 
