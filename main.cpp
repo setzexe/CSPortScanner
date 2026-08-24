@@ -15,8 +15,8 @@
 using namespace std;
 
 enum class PortState {
-	OPEN,
-	CLOSED,
+		OPEN,
+		CLOSED,
     	FILTERED,
     	ERROR
 };
@@ -24,7 +24,7 @@ enum class PortState {
 PortState scanPort(const string& target_ip, int target_port, int timeout_ms) {
     	int sock = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (sock == -1) {
+		if (sock == -1) {
         	return PortState::ERROR;
     	}
 
@@ -174,7 +174,7 @@ int main(int argc, char* argv[]) {
 
             		if (state == PortState::OPEN) {
                 		open_count++;
-				lock_guard<mutex> lock(output_mutex);
+						lock_guard<mutex> lock(output_mutex);
                 		cout << port << "/tcp OPEN" << endl;
             		} else if (state == PortState::CLOSED) {
                 		closed_count++;
